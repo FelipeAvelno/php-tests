@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+<body>
+    <form>
+        <label for="nome">Nome</label>
+        <input type="text" name="nome" id="nome">
+        
+        <br>
+
+        <label for="senha">Senha</label>
+        <input type="password" name="senha" id="senha">
+
+        <br>
+
+        <button type="button" onclick="mostra_nome()" >Enviar informações</button>
+
+    </form>
+</body>
+<script>
+    async function mostra_nome(){
+        var nome_js = document.getElementById('nome').value;
+        var senha_js = document.getElementById('senha').value;
+        
+        let campos_list = [nome_js, senha_js];
+
+        const config = {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                values: campos_list
+            })
+        };
+        const envia_controller = await fetch('../controllers/elo.php', config);
+        const recebe_controller = await envia_controller.json();
+        alert(recebe_controller);
+    }
+</script>
+
+
+</html>
